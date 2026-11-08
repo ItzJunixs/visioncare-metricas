@@ -1,0 +1,1537 @@
+{
+  "info": {
+    "name": "VisionCare API",
+    "description": "Login, 401/403 checks, CRUD of frames, patients and formulas, and the BR-09 business rule. Run the whole collection in order with the Collection Runner or newman. The seed users come from vc-db/migrations/V2__seed_users.sql.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "1. Authentication",
+      "item": [
+        {
+          "name": "Login as admin",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('status is 200', function () { pm.response.to.have.status(200); });",
+                  "const body = pm.response.json();",
+                  "pm.test('returns a JWT and the role', function () { pm.expect(body.token).to.be.a('string').and.not.empty; pm.expect(body.role).to.eql(pm.variables.get('adminRole')); });",
+                  "pm.collectionVariables.set('adminToken', body.token);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/login",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "login"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"username\": \"{{adminUser}}\",\n  \"password\": \"{{adminPassword}}\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Login as seller",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('status is 200', function () { pm.response.to.have.status(200); });",
+                  "const body = pm.response.json();",
+                  "pm.test('returns a JWT and the role', function () { pm.expect(body.token).to.be.a('string').and.not.empty; pm.expect(body.role).to.eql(pm.variables.get('sellerRole')); });",
+                  "pm.collectionVariables.set('sellerToken', body.token);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/login",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "login"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"username\": \"{{sellerUser}}\",\n  \"password\": \"{{sellerPassword}}\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Login as optometrist",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('status is 200', function () { pm.response.to.have.status(200); });",
+                  "const body = pm.response.json();",
+                  "pm.test('returns a JWT and the role', function () { pm.expect(body.token).to.be.a('string').and.not.empty; pm.expect(body.role).to.eql(pm.variables.get('optometristRole')); });",
+                  "pm.collectionVariables.set('optometristToken', body.token);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/login",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "login"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"username\": \"{{optometristUser}}\",\n  \"password\": \"{{optometristPassword}}\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Login with a wrong password",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('status is 401', function () { pm.response.to.have.status(401); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/login",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "login"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"username\": \"{{adminUser}}\",\n  \"password\": \"not-the-password\"\n}"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "2. Security: 401 without token, 403 with the wrong role",
+      "item": [
+        {
+          "name": "List frames without a token",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('status is 401', function () { pm.response.to.have.status(401); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/frames",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "frames"
+              ]
+            }
+          }
+        },
+        {
+          "name": "List patients with a garbage token",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('status is 401', function () { pm.response.to.have.status(401); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{garbageToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/patients",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "patients"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Create a frame as OPTOMETRIST",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('status is 403', function () { pm.response.to.have.status(403); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{optometristToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/frames",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "frames"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"sku\": \"X-0\",\n  \"brand\": \"B\",\n  \"model\": \"M\",\n  \"buyPrice\": 1,\n  \"sellPrice\": 2,\n  \"stockQuantity\": 1\n}"
+            }
+          }
+        },
+        {
+          "name": "Create a frame as SELLER",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('status is 403', function () { pm.response.to.have.status(403); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{sellerToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/frames",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "frames"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"sku\": \"X-0\",\n  \"brand\": \"B\",\n  \"model\": \"M\",\n  \"buyPrice\": 1,\n  \"sellPrice\": 2,\n  \"stockQuantity\": 1\n}"
+            }
+          }
+        },
+        {
+          "name": "Create a work order as OPTOMETRIST",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('status is 403', function () { pm.response.to.have.status(403); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{optometristToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/work-orders",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "work-orders"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"patientId\": \"00000000-0000-4000-8000-0000000000aa\",\n  \"frameId\": \"00000000-0000-4000-8000-0000000000bb\"\n}"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "3. CRUD of frames (ADMIN)",
+      "item": [
+        {
+          "name": "Create a frame",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.collectionVariables.set('sku', 'PM-' + Date.now());"
+                ]
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('status is 201', function () { pm.response.to.have.status(201); });",
+                  "pm.collectionVariables.set('frameId', pm.response.json().id);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/frames",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "frames"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"sku\": \"{{sku}}\",\n  \"brand\": \"Postman\",\n  \"model\": \"Collection\",\n  \"buyPrice\": 100000,\n  \"sellPrice\": 180000,\n  \"stockQuantity\": 3,\n  \"minStock\": 1\n}"
+            }
+          }
+        },
+        {
+          "name": "Reject a duplicate SKU",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('status is 409', function () { pm.response.to.have.status(409); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/frames",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "frames"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"sku\": \"{{sku}}\",\n  \"brand\": \"Postman\",\n  \"model\": \"Collection\",\n  \"buyPrice\": 100000,\n  \"sellPrice\": 180000,\n  \"stockQuantity\": 3,\n  \"minStock\": 1\n}"
+            }
+          }
+        },
+        {
+          "name": "Reject an invalid body",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('status is 400', function () { pm.response.to.have.status(400); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/frames",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "frames"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{}"
+            }
+          }
+        },
+        {
+          "name": "Get the frame",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('status is 200', function () { pm.response.to.have.status(200); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/frames/{{frameId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "frames",
+                "{{frameId}}"
+              ]
+            }
+          }
+        },
+        {
+          "name": "List frames",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('status is 200', function () { pm.response.to.have.status(200); });",
+                  "pm.test('the new frame is listed', function () { pm.expect(pm.response.json().some(f => f.id === pm.collectionVariables.get('frameId'))).to.be.true; });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/frames",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "frames"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Update the frame",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('status is 200', function () { pm.response.to.have.status(200); });",
+                  "pm.test('model changed', function () { pm.expect(pm.response.json().model).to.eql('Updated'); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/frames/{{frameId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "frames",
+                "{{frameId}}"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"sku\": \"{{sku}}\",\n  \"brand\": \"Postman\",\n  \"model\": \"Updated\",\n  \"buyPrice\": 100000,\n  \"sellPrice\": 190000,\n  \"stockQuantity\": 3,\n  \"minStock\": 1\n}"
+            }
+          }
+        },
+        {
+          "name": "Delete the frame",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('status is 204', function () { pm.response.to.have.status(204); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/frames/{{frameId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "frames",
+                "{{frameId}}"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get the deleted frame",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('status is 404', function () { pm.response.to.have.status(404); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/frames/{{frameId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "frames",
+                "{{frameId}}"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "4. CRUD of patients and optical formulas",
+      "item": [
+        {
+          "name": "Create a patient",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.collectionVariables.set('doc', String(Date.now()));"
+                ]
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('status is 201', function () { pm.response.to.have.status(201); });",
+                  "pm.collectionVariables.set('patientId', pm.response.json().id);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{sellerToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/patients",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "patients"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"documentType\": \"CC\",\n  \"documentNumber\": \"{{doc}}\",\n  \"firstName\": \"Prueba\",\n  \"lastName\": \"Postman\",\n  \"phone\": \"3000000000\",\n  \"email\": \"prueba@example.com\",\n  \"eps\": \"Sanitas\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Reject a duplicate document",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('status is 409', function () { pm.response.to.have.status(409); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{sellerToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/patients",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "patients"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"documentType\": \"CC\",\n  \"documentNumber\": \"{{doc}}\",\n  \"firstName\": \"Prueba\",\n  \"lastName\": \"Postman\",\n  \"phone\": \"3000000000\",\n  \"email\": \"prueba@example.com\",\n  \"eps\": \"Sanitas\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Get the patient",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('status is 200', function () { pm.response.to.have.status(200); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{optometristToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/patients/{{patientId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "patients",
+                "{{patientId}}"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Update the patient",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('status is 200', function () { pm.response.to.have.status(200); });",
+                  "pm.test('name changed', function () { pm.expect(pm.response.json().firstName).to.eql('Editado'); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{sellerToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/patients/{{patientId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "patients",
+                "{{patientId}}"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"documentType\": \"CC\",\n  \"documentNumber\": \"{{doc}}\",\n  \"firstName\": \"Editado\",\n  \"lastName\": \"Postman\",\n  \"phone\": \"3000000000\",\n  \"email\": \"prueba@example.com\",\n  \"eps\": \"Sanitas\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Register a formula (OPTOMETRIST)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('status is 201', function () { pm.response.to.have.status(201); });",
+                  "pm.collectionVariables.set('formulaId', pm.response.json().id);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{optometristToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/patients/{{patientId}}/optical-formulas",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "patients",
+                "{{patientId}}",
+                "optical-formulas"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"odSph\": -1.5,\n  \"odCyl\": -0.5,\n  \"odAxis\": 90,\n  \"oiSph\": -1.25,\n  \"oiCyl\": -0.75,\n  \"oiAxis\": 85,\n  \"pupillaryDistance\": 62,\n  \"isCurrent\": true\n}"
+            }
+          }
+        },
+        {
+          "name": "Reject an axis out of range",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('status is 422', function () { pm.response.to.have.status(422); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{optometristToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/patients/{{patientId}}/optical-formulas",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "patients",
+                "{{patientId}}",
+                "optical-formulas"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"odSph\": -1.5,\n  \"odCyl\": -0.5,\n  \"odAxis\": 200,\n  \"oiSph\": -1.25,\n  \"oiCyl\": -0.75,\n  \"oiAxis\": 85,\n  \"pupillaryDistance\": 62,\n  \"isCurrent\": true\n}"
+            }
+          }
+        },
+        {
+          "name": "List the formulas",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('status is 200', function () { pm.response.to.have.status(200); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{optometristToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/patients/{{patientId}}/optical-formulas",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "patients",
+                "{{patientId}}",
+                "optical-formulas"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Update the formula",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('status is 200', function () { pm.response.to.have.status(200); });",
+                  "pm.test('sphere changed', function () { pm.expect(pm.response.json().odSph).to.eql(-2.0); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{optometristToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/patients/{{patientId}}/optical-formulas/{{formulaId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "patients",
+                "{{patientId}}",
+                "optical-formulas",
+                "{{formulaId}}"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"odSph\": -2.0,\n  \"odCyl\": -0.5,\n  \"odAxis\": 90,\n  \"oiSph\": -1.25,\n  \"oiCyl\": -0.75,\n  \"oiAxis\": 85,\n  \"pupillaryDistance\": 62,\n  \"isCurrent\": true\n}"
+            }
+          }
+        },
+        {
+          "name": "Delete the formula",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('status is 204', function () { pm.response.to.have.status(204); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{optometristToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/patients/{{patientId}}/optical-formulas/{{formulaId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "patients",
+                "{{patientId}}",
+                "optical-formulas",
+                "{{formulaId}}"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "5. Business rule BR-09: approving an order moves stock and issues the invoice",
+      "item": [
+        {
+          "name": "Create a frame with stock 1",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.collectionVariables.set('sku', 'PM-' + Date.now());"
+                ]
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('status is 201', function () { pm.response.to.have.status(201); });",
+                  "pm.collectionVariables.set('ruleFrameId', pm.response.json().id);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/frames",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "frames"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"sku\": \"{{sku}}\",\n  \"brand\": \"Postman\",\n  \"model\": \"Collection\",\n  \"buyPrice\": 100000,\n  \"sellPrice\": 180000,\n  \"stockQuantity\": 1,\n  \"minStock\": 0\n}"
+            }
+          }
+        },
+        {
+          "name": "Register a current formula",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('status is 201', function () { pm.response.to.have.status(201); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{optometristToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/patients/{{patientId}}/optical-formulas",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "patients",
+                "{{patientId}}",
+                "optical-formulas"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"odSph\": -1.5,\n  \"odCyl\": -0.5,\n  \"odAxis\": 90,\n  \"oiSph\": -1.25,\n  \"oiCyl\": -0.75,\n  \"oiAxis\": 85,\n  \"pupillaryDistance\": 62,\n  \"isCurrent\": true\n}"
+            }
+          }
+        },
+        {
+          "name": "Create a work order (quote)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('status is 201', function () { pm.response.to.have.status(201); });",
+                  "pm.test('starts as QUOTE', function () { pm.expect(pm.response.json().status).to.eql('QUOTE'); });",
+                  "pm.collectionVariables.set('orderId', pm.response.json().id);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{sellerToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/work-orders",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "work-orders"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"patientId\": \"{{patientId}}\",\n  \"frameId\": \"{{ruleFrameId}}\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Approve the work order",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('status is 200', function () { pm.response.to.have.status(200); });",
+                  "pm.test('is APPROVED', function () { pm.expect(pm.response.json().status).to.eql('APPROVED'); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{sellerToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/work-orders/{{orderId}}/approve",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "work-orders",
+                "{{orderId}}",
+                "approve"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Stock went from 1 to 0",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('status is 200', function () { pm.response.to.have.status(200); });",
+                  "pm.test('stock is 0', function () { pm.expect(pm.response.json().stockQuantity).to.eql(0); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/frames/{{ruleFrameId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "frames",
+                "{{ruleFrameId}}"
+              ]
+            }
+          }
+        },
+        {
+          "name": "The invoice was issued",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('status is 200', function () { pm.response.to.have.status(200); });",
+                  "pm.test('an invoice exists for the order', function () { pm.expect(pm.response.json().some(i => i.workOrderId === pm.collectionVariables.get('orderId'))).to.be.true; });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{sellerToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/invoices",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "invoices"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Approving again is rejected",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('is a client error', function () { pm.expect(pm.response.code).to.be.oneOf([409, 422]); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{sellerToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/work-orders/{{orderId}}/approve",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "work-orders",
+                "{{orderId}}",
+                "approve"
+              ]
+            }
+          }
+        },
+        {
+          "name": "A second order for the empty frame cannot be approved",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('status is 201', function () { pm.response.to.have.status(201); });",
+                  "pm.collectionVariables.set('order2Id', pm.response.json().id);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{sellerToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/work-orders",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "work-orders"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"patientId\": \"{{patientId}}\",\n  \"frameId\": \"{{ruleFrameId}}\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Approval without stock answers 409",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('status is 409', function () { pm.response.to.have.status(409); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{sellerToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/work-orders/{{order2Id}}/approve",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "work-orders",
+                "{{order2Id}}",
+                "approve"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "6. Deactivate the patient",
+      "item": [
+        {
+          "name": "Deactivate the patient",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('status is 204', function () { pm.response.to.have.status(204); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{sellerToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/patients/{{patientId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "patients",
+                "{{patientId}}"
+              ]
+            }
+          }
+        },
+        {
+          "name": "The patient is now INACTIVE",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('status is 200', function () { pm.response.to.have.status(200); });",
+                  "pm.test('is INACTIVE', function () { pm.expect(pm.response.json().status).to.eql('INACTIVE'); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{sellerToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/patients/{{patientId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "patients",
+                "{{patientId}}"
+              ]
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080"
+    },
+    {
+      "key": "adminUser",
+      "value": "admin"
+    },
+    {
+      "key": "adminPassword",
+      "value": "Admin2026*"
+    },
+    {
+      "key": "adminRole",
+      "value": "ADMIN"
+    },
+    {
+      "key": "sellerUser",
+      "value": "seller"
+    },
+    {
+      "key": "sellerPassword",
+      "value": "Seller2026*"
+    },
+    {
+      "key": "sellerRole",
+      "value": "SELLER"
+    },
+    {
+      "key": "optometristUser",
+      "value": "optometrist"
+    },
+    {
+      "key": "optometristPassword",
+      "value": "Optom2026*"
+    },
+    {
+      "key": "optometristRole",
+      "value": "OPTOMETRIST"
+    },
+    {
+      "key": "garbageToken",
+      "value": "not.a.valid.token"
+    }
+  ]
+}
