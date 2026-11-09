@@ -1,0 +1,88 @@
+repo,sha,fecha,autor,tipo,insertadas,eliminadas,mensaje
+vc-api,871b119,2026-11-08,Juan Diego Jiménez Horta,Perfectivo,37,0,"docs(api): describe how to run, test and document the API"
+vc-api,2d1176f,2026-11-08,Juan Diego Jiménez Horta,Adaptativo,16,0,chore(api): add the multi-stage Dockerfile
+vc-api,759c94c,2026-11-08,Juan Diego Jiménez Horta,Preventivo,1537,0,"test(api): add the Postman collection for login, 401, 403, the CRUDs and the business rule"
+vc-api,9c8d109,2026-11-08,Juan Diego Jiménez Horta,Preventivo,438,0,"test(api): cover the services, the web layer and the module boundaries"
+vc-api,158eda7,2026-11-08,Juan Diego Jiménez Horta,Correctivo,650,0,fix(facturacion): issue the invoice in its own transaction after the approval commits
+vc-api,48eb64d,2026-11-08,Juan Diego Jiménez Horta,Perfectivo,857,0,feat(ordenes): add work orders with the status sequence and stock-checked approval
+vc-api,bc0b588,2026-11-08,Juan Diego Jiménez Horta,Perfectivo,822,0,feat(inventario): add the frame CRUD with stock movements
+vc-api,18f02c3,2026-11-08,Juan Diego Jiménez Horta,Perfectivo,1211,0,feat(pacientes): add the patient and optical formula CRUD
+vc-api,bb715bc,2026-11-08,Juan Diego Jiménez Horta,Perfectivo,521,0,"feat(usuarios): add JWT login, BCrypt hashing and the role rules"
+vc-api,f324e1e,2026-11-08,Juan Diego Jiménez Horta,Perfectivo,293,0,"feat(shared): add money, events, transactions, OpenAPI and the error handler"
+vc-api,5a752b3,2026-11-08,Juan Diego Jiménez Horta,Desarrollo inicial,161,0,chore(api): create the Spring Boot project and its configuration
+vc-api,dcae345,2026-10-05,Juan,Correctivo,1,1,fix(db): align stock_movements.type check constraint with code (BR-07)
+vc-api,90f2135,2026-10-05,Juan,Adaptativo,5,0,chore: ignore Maven build output
+vc-api,a30dca2,2026-10-05,Juan,Desarrollo inicial,4090,0,feat(vc-api): scaffold modular-monolith MVP backend
+vc-api,4fbaf4b,2026-10-02,Jesús Ariel González Bonilla,Adaptativo,3,0,chore: teacher approval on main (CODEOWNERS)
+vc-api,3a8e5c6,2026-10-02,Jesús Ariel González Bonilla,Perfectivo,21,1,docs: repository purpose and branching model
+vc-api,8b91f7b,2026-10-02,Jesús Ariel González Bonilla,Desarrollo inicial,2,0,Initial commit
+vc-portal,514ddd1,2026-11-08,Juan Diego Jiménez Horta,Correctivo,1,1,"fix(portal): do not show a zero balance in the invoice list, which has no balance field"
+vc-portal,8ac6111,2026-11-08,Juan,Perfectivo,40,11,"docs(portal): describe the screens, the tests and how to run them"
+vc-portal,81f27f9,2026-11-08,Juan,Adaptativo,35,0,chore(portal): add the Dockerfile and the nginx proxy for /api
+vc-portal,e188a93,2026-11-08,Juan,Preventivo,117,0,test(portal): cover the API client and the route guard with Vitest
+vc-portal,75b8e0d,2026-11-08,Juan,Perfectivo,675,0,feat(portal): add work orders and invoices for the approval business rule
+vc-portal,00844f9,2026-11-08,Juan,Perfectivo,291,0,"feat(portal): add the inventory screens with create, edit and delete"
+vc-portal,a790714,2026-11-08,Juan,Perfectivo,531,0,"feat(portal): add the patient and optical formula screens with edit, deactivate and delete"
+vc-portal,a51940a,2026-11-08,Juan,Perfectivo,315,0,feat(portal): add the login screen and the role-based routes
+vc-portal,57aa34d,2026-11-08,Juan,Perfectivo,1460,0,"feat(portal): add the layout, theme, toasts and the route guard"
+vc-portal,8f2ea9d,2026-11-08,Juan,Perfectivo,274,0,feat(portal): add the API client with the token interceptor and session handling
+vc-portal,e0f4cb2,2026-11-08,Juan,Desarrollo inicial,3345,0,chore(portal): create the Vite + React + TypeScript project
+vc-portal,50b73a6,2026-10-05,Juan,Adaptativo,1852,0,chore(vc-portal): add package-lock.json for reproducible installs
+vc-portal,c67cb36,2026-10-05,Juan,Adaptativo,4,0,chore: ignore node_modules and build output
+vc-portal,a448eb2,2026-10-05,Juan,Desarrollo inicial,3461,0,feat(vc-portal): scaffold MVP frontend for VisionCare
+vc-portal,38c81a0,2026-10-02,Jesús Ariel González Bonilla,Adaptativo,3,0,chore: teacher approval on main (CODEOWNERS)
+vc-portal,e64ae2b,2026-10-02,Jesús Ariel González Bonilla,Perfectivo,21,1,docs: repository purpose and branching model
+vc-portal,47c0d62,2026-10-02,Jesús Ariel González Bonilla,Desarrollo inicial,2,0,Initial commit
+vc-db,ef3b011,2026-11-08,Juan Diego Jiménez Horta,Perfectivo,34,0,docs(db): add the entity-relationship diagram and describe the repository
+vc-db,c303553,2026-11-08,Juan Diego Jiménez Horta,Perfectivo,24,0,"feat(inventario): seed demo frames, patients and formulas"
+vc-db,e0ee8a7,2026-11-08,Juan Diego Jiménez Horta,Perfectivo,153,0,feat(usuarios): add the schema migration and seed users for each role
+vc-db,10602bd,2026-10-02,Jesús Ariel González Bonilla,Adaptativo,3,0,chore: teacher approval on main (CODEOWNERS)
+vc-db,934e4e5,2026-10-02,Jesús Ariel González Bonilla,Perfectivo,21,1,docs: repository purpose and branching model
+vc-db,8c8fba3,2026-10-02,Jesús Ariel González Bonilla,Desarrollo inicial,2,0,Initial commit
+vc-infra,98650c0,2026-11-08,Juan Diego Jiménez Horta,Perfectivo,134,0,docs(infra): write the implementation manual in nine points
+vc-infra,cb87f3d,2026-11-08,Juan Diego Jiménez Horta,Perfectivo,73,0,"feat(infra): add the Compose stack with db, migrations, api and portal"
+vc-infra,e098a00,2026-11-08,Juan Diego Jiménez Horta,Adaptativo,21,0,chore(infra): add the environment template and ignore .env
+vc-infra,5edaf7d,2026-10-02,Jesús Ariel González Bonilla,Adaptativo,3,0,chore: teacher approval on main (CODEOWNERS)
+vc-infra,70df84f,2026-10-02,Jesús Ariel González Bonilla,Perfectivo,21,1,docs: repository purpose and branching model
+vc-infra,a44a983,2026-10-02,Jesús Ariel González Bonilla,Desarrollo inicial,2,0,Initial commit
+vc-docs,10513a8,2026-11-08,Juan Diego Jiménez Horta,Perfectivo,23,33,docs(devops): rewrite local setup for the Docker Compose stack
+vc-docs,9f04faa,2026-11-08,Juan Diego Jiménez Horta,Perfectivo,20,1,docs(domain): state what the v1.0.0 MVP implements and why the invoice handler uses its own transaction
+vc-docs,7615223,2026-11-08,Juan Diego Jiménez Horta,Perfectivo,24,4,docs(readme): add the MVP card and the overview and tech section
+vc-docs,4d4be08,2026-11-08,Juan Diego Jiménez Horta,Perfectivo,4,19,docs(devops): remove out-of-scope references from section readmes
+vc-docs,e57076a,2026-11-08,Juan Diego Jiménez Horta,Perfectivo,393,67,"docs(api): add login contract, update and delete operations, 403 responses and plain list responses"
+vc-docs,4125224,2026-11-08,Juan Diego Jiménez Horta,Perfectivo,66,29,"docs(data): decide schema per module, align models with the migration and add normalization"
+vc-docs,d6d543b,2026-11-08,Juan Diego Jiménez Horta,Perfectivo,165,52,docs(architecture): record ADR-002 to ADR-004 and map layers to the real folders
+vc-docs,7266672,2026-11-08,Juan Diego Jiménez Horta,Perfectivo,9,38,docs(context): remove references to other architectures and close section readmes
+vc-docs,178a774,2026-11-08,Juan Diego Jiménez Horta,Perfectivo,29,33,"docs(governance): align git conventions with the develop, qa and main flow"
+vc-docs,40f5b8f,2026-09-28,Juan,Correctivo,28,0,fix(api): declare 401 on every ordenes and facturacion endpoint
+vc-docs,96b0d2a,2026-09-28,Juan,Perfectivo,323,24,docs(ux-ui): define the design system and one screen per key story
+vc-docs,bc9bbc1,2026-09-28,Juan,Perfectivo,948,23,docs(api): specify the single public API and its resource contracts
+vc-docs,9f99913,2026-09-21,Juan,Perfectivo,43,42,docs(data): model VisionCare's schema-per-module data design
+vc-docs,ff2cae2,2026-09-21,Juan,Perfectivo,40,57,docs(architecture): specify the modular monolith for five modules
+vc-docs,485d52a,2026-09-21,Juan,Perfectivo,44,41,docs(requirements): rewrite requirements and fix HU-to-module cardinality
+vc-docs,60f4586,2026-09-21,Juan,Perfectivo,36,37,docs(product): reframe vision and problem statement for VisionCare
+vc-docs,9002398,2026-09-21,Juan,Perfectivo,87,38,docs(domain): define VisionCare's five bounded contexts
+vc-docs,bfe2013,2026-09-21,Juan,Perfectivo,61,48,docs(context): adapt project context to the VisionCare domain
+vc-docs,4fa0bcf,2026-09-21,Juan,Perfectivo,30,49,docs(governance): close out governance docs for the modular monolith
+vc-docs,1b1a77b,2026-09-12,Jesús Ariel González Bonilla,Correctivo,9,28,fix: repair six regressions the corrective re-review found in the fix wave
+vc-docs,90bbf29,2026-09-12,Jesús Ariel González Bonilla,Correctivo,159,72,fix: reconcile the contradictions a whole-branch read found between sections
+vc-docs,5975f7f,2026-09-12,Jesús Ariel González Bonilla,Perfectivo,6,2,docs: make the diagram legend and the footer rule true of every case
+vc-docs,b49450c,2026-09-12,Jesús Ariel González Bonilla,Perfectivo,16,9,"docs: correct one dependency edge, the changelog attribution and four counts"
+vc-docs,53be700,2026-09-12,Jesús Ariel González Bonilla,Perfectivo,150,28,docs: rewrite README and changelog for v2.0.0
+vc-docs,d20d925,2026-09-12,Jesús Ariel González Bonilla,Correctivo,3,3,"fix(stacks): correct import-linter root key, Deptrac package and Java deploy goal"
+vc-docs,d0d14b7,2026-09-12,Jesús Ariel González Bonilla,Perfectivo,393,0,"feat(stacks): add Java/Spring, Node/TS, Python/Django and PHP/Laravel guides"
+vc-docs,2105a53,2026-09-12,Jesús Ariel González Bonilla,Correctivo,7,6,fix(operations): restate NFR-10 to its actual scope in runbook and README
+vc-docs,0c25545,2026-09-12,Jesús Ariel González Bonilla,Perfectivo,304,0,feat(ux-ops): add design system and single-process operations guides
+vc-docs,e304f64,2026-09-12,Jesús Ariel González Bonilla,Correctivo,2,2,"fix(quality): correct NFR-07 coverage basis to changed files, not overall"
+vc-docs,7b22314,2026-09-12,Jesús Ariel González Bonilla,Perfectivo,344,54,feat(devops-quality): add single-pipeline CI/CD and monolith test pyramid
+vc-docs,a1796ab,2026-09-12,Jesús Ariel González Bonilla,Perfectivo,317,2,feat(modules): add diagram index and module catalog with per-module template
+vc-docs,760d09a,2026-09-12,Jesús Ariel González Bonilla,Correctivo,23,23,"fix(data-api): unify table naming on plural, require product category"
+vc-docs,6611766,2026-09-12,Jesús Ariel González Bonilla,Perfectivo,467,20,feat(data-api): add data conventions and single public API contract
+vc-docs,bd04850,2026-09-12,Jesús Ariel González Bonilla,Correctivo,31,27,"fix(architecture): correct identity framing, ADR template paths, threshold logic and boundary rules"
+vc-docs,5ed6b76,2026-09-12,Jesús Ariel González Bonilla,Perfectivo,538,43,feat(architecture): add modular monolith core with ADR-001
+vc-docs,9e3244b,2026-09-12,Jesús Ariel González Bonilla,Perfectivo,193,0,"feat(requirements): add user stories, NFRs and traceability matrix"
+vc-docs,01b80bc,2026-09-12,Jesús Ariel González Bonilla,Perfectivo,410,0,"feat(discovery): add context, domain and product sections"
+vc-docs,b6d8262,2026-09-12,Jesús Ariel González Bonilla,Correctivo,27,27,fix(governance): apply round-1 review fixes to section anatomy
+vc-docs,992d5da,2026-09-12,Jesús Ariel González Bonilla,Perfectivo,453,0,feat(governance): add SDD guide and governance section
+vc-docs,7d1d4f8,2026-09-12,Jesús Ariel González Bonilla,Desarrollo inicial,0,0,chore: start v2.0.0 rebuild
+vc-docs,60daa3e,2026-08-24,Jesús Ariel González Bonilla,Perfectivo,207,0,feat: monolith governance framework v1.0.0
