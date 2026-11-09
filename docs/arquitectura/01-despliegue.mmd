@@ -1,0 +1,7 @@
+flowchart LR
+  U["Navegador<br/>(ADMIN, SELLER, OPTOMETRIST)"] -->|HTTPS| P
+  subgraph DC["Docker Compose (vc-infra)"]
+    P["vc-portal<br/>React 18 + Vite<br/>servido por nginx"] -->|"/api/* (proxy)<br/>JSON + JWT"| A["vc-api<br/>Spring Boot 3.5 · Java 21<br/>un solo desplegable"]
+    A -->|JDBC| D[("PostgreSQL 16<br/>un esquema por módulo")]
+    F["Flyway 10<br/>migraciones vc-db"] -->|"V1..V3"| D
+  end

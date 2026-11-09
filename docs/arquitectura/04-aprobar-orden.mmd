@@ -1,0 +1,21 @@
+sequenceDiagram
+  autonumber
+  actor V as Vendedor
+  participant WC as WorkOrderController
+  participant UC as ApproveWorkOrderUseCase
+  participant WO as WorkOrder (dominio)
+  participant INV as InventarioFacade
+  participant EV as DomainEventPublisher
+  participant L as WorkOrderApprovedListener
+  V->>WC: POST /api/work-orders/{id}/approve (JWT SELLER)
+  WC->>UC: execute(id, usuario)
+  rect rgb(235,242,250)
+  note over UC,EV: una sola transacción (TransactionRunner)
+  UC->>WO: approve()  [BR-08]
+  UC->>INV: reserveStock(frameId, 1, orderId)  [BR-06, BR-07, BR-09]
+  UC->>UC: history.append(...)  [BR-11]
+  UC->>EV: publish(WorkOrderApprovedEvent)
+  end
+  WC-->>V: 200 OK (orden APPROVED)
+  EV-)L: después del commit
+  L->>L: CreateInvoiceUseCase → factura FV-AAAA-NNNN (transacción propia)

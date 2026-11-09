@@ -1,0 +1,10 @@
+flowchart LR
+  subgraph M["&lt;modulo&gt;/internal/"]
+    direction LR
+    C["controller/ + dto/<br/>Presentación<br/>REST, validación de forma"] --> S["service/<br/>Aplicación<br/>un caso de uso por clase"]
+    S --> E["entity/<br/>Dominio<br/>entidades, reglas BR-xx,<br/>puertos *Repository"]
+    R["repository/<br/>Persistencia<br/>*Data (JPA), *Mapper,<br/>*PersistenceAdapter"] -->|implementa el puerto| E
+    CFG["config/<br/>conecta casos de uso<br/>con adaptadores"] -.-> S
+    CFG -.-> R
+  end
+  FA["&lt;Modulo&gt;Facade<br/>(API pública del módulo)"] --> S

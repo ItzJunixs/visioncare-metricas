@@ -1,0 +1,18 @@
+flowchart TB
+  subgraph API["vc-api · monolito modular"]
+    direction TB
+    PAC["pacientes<br/>PacientesFacade"]
+    INV["inventario<br/>InventarioFacade"]
+    ORD["ordenes<br/>OrdenesFacade"]
+    FAC["facturacion"]
+    USU["usuarios<br/>login JWT + filtro de roles<br/>(protege todos los endpoints)"]
+    SH["shared<br/>Money · eventos · transacciones · errores"]
+    ORD -->|"PacientesFacade<br/>(fórmula vigente)"| PAC
+    ORD -->|"InventarioFacade<br/>(reservar stock, BR-09)"| INV
+    ORD -.->|"WorkOrderApprovedEvent<br/>(después del commit)"| FAC
+  end
+  PAC --- SH
+  INV --- SH
+  ORD --- SH
+  FAC --- SH
+  USU --- SH
