@@ -1,0 +1,90 @@
+vc-api|871b119|2026-11-08|Juan Diego Jiménez Horta|docs(api): describe how to run, test and document the API|37|0
+vc-api|2d1176f|2026-11-08|Juan Diego Jiménez Horta|chore(api): add the multi-stage Dockerfile|16|0
+vc-api|759c94c|2026-11-08|Juan Diego Jiménez Horta|test(api): add the Postman collection for login, 401, 403, the CRUDs and the business rule|1537|0
+vc-api|9c8d109|2026-11-08|Juan Diego Jiménez Horta|test(api): cover the services, the web layer and the module boundaries|438|0
+vc-api|158eda7|2026-11-08|Juan Diego Jiménez Horta|fix(facturacion): issue the invoice in its own transaction after the approval commits|650|0
+vc-api|48eb64d|2026-11-08|Juan Diego Jiménez Horta|feat(ordenes): add work orders with the status sequence and stock-checked approval|857|0
+vc-api|bc0b588|2026-11-08|Juan Diego Jiménez Horta|feat(inventario): add the frame CRUD with stock movements|822|0
+vc-api|18f02c3|2026-11-08|Juan Diego Jiménez Horta|feat(pacientes): add the patient and optical formula CRUD|1211|0
+vc-api|bb715bc|2026-11-08|Juan Diego Jiménez Horta|feat(usuarios): add JWT login, BCrypt hashing and the role rules|521|0
+vc-api|f324e1e|2026-11-08|Juan Diego Jiménez Horta|feat(shared): add money, events, transactions, OpenAPI and the error handler|293|0
+vc-api|5a752b3|2026-11-08|Juan Diego Jiménez Horta|chore(api): create the Spring Boot project and its configuration|161|0
+vc-api|dcae345|2026-10-05|Juan|fix(db): align stock_movements.type check constraint with code (BR-07)|1|1
+vc-api|90f2135|2026-10-05|Juan|chore: ignore Maven build output|5|0
+vc-api|a30dca2|2026-10-05|Juan|feat(vc-api): scaffold modular-monolith MVP backend|4090|0
+vc-api|4fbaf4b|2026-10-02|Jesús Ariel González Bonilla|chore: teacher approval on main (CODEOWNERS)|3|0
+vc-api|3a8e5c6|2026-10-02|Jesús Ariel González Bonilla|docs: repository purpose and branching model|21|1
+vc-api|8b91f7b|2026-10-02|Jesús Ariel González Bonilla|Initial commit|2|0
+vc-portal|514ddd1|2026-11-08|Juan Diego Jiménez Horta|fix(portal): do not show a zero balance in the invoice list, which has no balance field|1|1
+vc-portal|138e161|2026-11-08|Juan Diego Jiménez Horta|fix(portal): do not show a zero balance in the invoice list, which has no balance field|1|1
+vc-portal|8ac6111|2026-11-08|Juan|docs(portal): describe the screens, the tests and how to run them|40|11
+vc-portal|81f27f9|2026-11-08|Juan|chore(portal): add the Dockerfile and the nginx proxy for /api|35|0
+vc-portal|e188a93|2026-11-08|Juan|test(portal): cover the API client and the route guard with Vitest|117|0
+vc-portal|75b8e0d|2026-11-08|Juan|feat(portal): add work orders and invoices for the approval business rule|675|0
+vc-portal|00844f9|2026-11-08|Juan|feat(portal): add the inventory screens with create, edit and delete|291|0
+vc-portal|a790714|2026-11-08|Juan|feat(portal): add the patient and optical formula screens with edit, deactivate and delete|531|0
+vc-portal|a51940a|2026-11-08|Juan|feat(portal): add the login screen and the role-based routes|315|0
+vc-portal|57aa34d|2026-11-08|Juan|feat(portal): add the layout, theme, toasts and the route guard|1460|0
+vc-portal|8f2ea9d|2026-11-08|Juan|feat(portal): add the API client with the token interceptor and session handling|274|0
+vc-portal|e0f4cb2|2026-11-08|Juan|chore(portal): create the Vite + React + TypeScript project|3345|0
+vc-portal|50b73a6|2026-10-05|Juan|chore(vc-portal): add package-lock.json for reproducible installs|1852|0
+vc-portal|c67cb36|2026-10-05|Juan|chore: ignore node_modules and build output|4|0
+vc-portal|a448eb2|2026-10-05|Juan|feat(vc-portal): scaffold MVP frontend for VisionCare|3461|0
+vc-portal|38c81a0|2026-10-02|Jesús Ariel González Bonilla|chore: teacher approval on main (CODEOWNERS)|3|0
+vc-portal|e64ae2b|2026-10-02|Jesús Ariel González Bonilla|docs: repository purpose and branching model|21|1
+vc-portal|47c0d62|2026-10-02|Jesús Ariel González Bonilla|Initial commit|2|0
+vc-db|ef3b011|2026-11-08|Juan Diego Jiménez Horta|docs(db): add the entity-relationship diagram and describe the repository|34|0
+vc-db|c303553|2026-11-08|Juan Diego Jiménez Horta|feat(inventario): seed demo frames, patients and formulas|24|0
+vc-db|e0ee8a7|2026-11-08|Juan Diego Jiménez Horta|feat(usuarios): add the schema migration and seed users for each role|153|0
+vc-db|10602bd|2026-10-02|Jesús Ariel González Bonilla|chore: teacher approval on main (CODEOWNERS)|3|0
+vc-db|934e4e5|2026-10-02|Jesús Ariel González Bonilla|docs: repository purpose and branching model|21|1
+vc-db|8c8fba3|2026-10-02|Jesús Ariel González Bonilla|Initial commit|2|0
+vc-infra|98650c0|2026-11-08|Juan Diego Jiménez Horta|docs(infra): write the implementation manual in nine points|134|0
+vc-infra|cb87f3d|2026-11-08|Juan Diego Jiménez Horta|feat(infra): add the Compose stack with db, migrations, api and portal|73|0
+vc-infra|e098a00|2026-11-08|Juan Diego Jiménez Horta|chore(infra): add the environment template and ignore .env|21|0
+vc-infra|5edaf7d|2026-10-02|Jesús Ariel González Bonilla|chore: teacher approval on main (CODEOWNERS)|3|0
+vc-infra|70df84f|2026-10-02|Jesús Ariel González Bonilla|docs: repository purpose and branching model|21|1
+vc-infra|a44a983|2026-10-02|Jesús Ariel González Bonilla|Initial commit|2|0
+vc-docs|10513a8|2026-11-08|Juan Diego Jiménez Horta|docs(devops): rewrite local setup for the Docker Compose stack|23|33
+vc-docs|9f04faa|2026-11-08|Juan Diego Jiménez Horta|docs(domain): state what the v1.0.0 MVP implements and why the invoice handler uses its own transaction|20|1
+vc-docs|6d70d03|2026-11-08|Juan Diego Jiménez Horta|docs(devops): rewrite local setup for the Docker Compose stack|23|33
+vc-docs|3318183|2026-11-08|Juan Diego Jiménez Horta|docs(domain): state what the v1.0.0 MVP implements and why the invoice handler uses its own transaction|20|1
+vc-docs|7615223|2026-11-08|Juan Diego Jiménez Horta|docs(readme): add the MVP card and the overview and tech section|24|4
+vc-docs|4d4be08|2026-11-08|Juan Diego Jiménez Horta|docs(devops): remove out-of-scope references from section readmes|4|19
+vc-docs|e57076a|2026-11-08|Juan Diego Jiménez Horta|docs(api): add login contract, update and delete operations, 403 responses and plain list responses|393|67
+vc-docs|4125224|2026-11-08|Juan Diego Jiménez Horta|docs(data): decide schema per module, align models with the migration and add normalization|66|29
+vc-docs|d6d543b|2026-11-08|Juan Diego Jiménez Horta|docs(architecture): record ADR-002 to ADR-004 and map layers to the real folders|165|52
+vc-docs|7266672|2026-11-08|Juan Diego Jiménez Horta|docs(context): remove references to other architectures and close section readmes|9|38
+vc-docs|178a774|2026-11-08|Juan Diego Jiménez Horta|docs(governance): align git conventions with the develop, qa and main flow|29|33
+vc-docs|40f5b8f|2026-09-28|Juan|fix(api): declare 401 on every ordenes and facturacion endpoint|28|0
+vc-docs|96b0d2a|2026-09-28|Juan|docs(ux-ui): define the design system and one screen per key story|323|24
+vc-docs|bc9bbc1|2026-09-28|Juan|docs(api): specify the single public API and its resource contracts|948|23
+vc-docs|9f99913|2026-09-21|Juan|docs(data): model VisionCare's schema-per-module data design|43|42
+vc-docs|ff2cae2|2026-09-21|Juan|docs(architecture): specify the modular monolith for five modules|40|57
+vc-docs|485d52a|2026-09-21|Juan|docs(requirements): rewrite requirements and fix HU-to-module cardinality|44|41
+vc-docs|60f4586|2026-09-21|Juan|docs(product): reframe vision and problem statement for VisionCare|36|37
+vc-docs|9002398|2026-09-21|Juan|docs(domain): define VisionCare's five bounded contexts|87|38
+vc-docs|bfe2013|2026-09-21|Juan|docs(context): adapt project context to the VisionCare domain|61|48
+vc-docs|4fa0bcf|2026-09-21|Juan|docs(governance): close out governance docs for the modular monolith|30|49
+vc-docs|1b1a77b|2026-09-12|Jesús Ariel González Bonilla|fix: repair six regressions the corrective re-review found in the fix wave|9|28
+vc-docs|90bbf29|2026-09-12|Jesús Ariel González Bonilla|fix: reconcile the contradictions a whole-branch read found between sections|159|72
+vc-docs|5975f7f|2026-09-12|Jesús Ariel González Bonilla|docs: make the diagram legend and the footer rule true of every case|6|2
+vc-docs|b49450c|2026-09-12|Jesús Ariel González Bonilla|docs: correct one dependency edge, the changelog attribution and four counts|16|9
+vc-docs|53be700|2026-09-12|Jesús Ariel González Bonilla|docs: rewrite README and changelog for v2.0.0|150|28
+vc-docs|d20d925|2026-09-12|Jesús Ariel González Bonilla|fix(stacks): correct import-linter root key, Deptrac package and Java deploy goal|3|3
+vc-docs|d0d14b7|2026-09-12|Jesús Ariel González Bonilla|feat(stacks): add Java/Spring, Node/TS, Python/Django and PHP/Laravel guides|393|0
+vc-docs|2105a53|2026-09-12|Jesús Ariel González Bonilla|fix(operations): restate NFR-10 to its actual scope in runbook and README|7|6
+vc-docs|0c25545|2026-09-12|Jesús Ariel González Bonilla|feat(ux-ops): add design system and single-process operations guides|304|0
+vc-docs|e304f64|2026-09-12|Jesús Ariel González Bonilla|fix(quality): correct NFR-07 coverage basis to changed files, not overall|2|2
+vc-docs|7b22314|2026-09-12|Jesús Ariel González Bonilla|feat(devops-quality): add single-pipeline CI/CD and monolith test pyramid|344|54
+vc-docs|a1796ab|2026-09-12|Jesús Ariel González Bonilla|feat(modules): add diagram index and module catalog with per-module template|317|2
+vc-docs|760d09a|2026-09-12|Jesús Ariel González Bonilla|fix(data-api): unify table naming on plural, require product category|23|23
+vc-docs|6611766|2026-09-12|Jesús Ariel González Bonilla|feat(data-api): add data conventions and single public API contract|467|20
+vc-docs|bd04850|2026-09-12|Jesús Ariel González Bonilla|fix(architecture): correct identity framing, ADR template paths, threshold logic and boundary rules|31|27
+vc-docs|5ed6b76|2026-09-12|Jesús Ariel González Bonilla|feat(architecture): add modular monolith core with ADR-001|538|43
+vc-docs|9e3244b|2026-09-12|Jesús Ariel González Bonilla|feat(requirements): add user stories, NFRs and traceability matrix|193|0
+vc-docs|01b80bc|2026-09-12|Jesús Ariel González Bonilla|feat(discovery): add context, domain and product sections|410|0
+vc-docs|b6d8262|2026-09-12|Jesús Ariel González Bonilla|fix(governance): apply round-1 review fixes to section anatomy|27|27
+vc-docs|992d5da|2026-09-12|Jesús Ariel González Bonilla|feat(governance): add SDD guide and governance section|453|0
+vc-docs|7d1d4f8|2026-09-12|Jesús Ariel González Bonilla|chore: start v2.0.0 rebuild|0|0
+vc-docs|60daa3e|2026-08-24|Jesús Ariel González Bonilla|feat: monolith governance framework v1.0.0|207|0
