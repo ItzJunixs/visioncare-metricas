@@ -9,8 +9,8 @@ la aplicación no se modifica.
 
 VisionCare es una aplicación web para ópticas independientes. Cubre todo el recorrido del paciente hasta
 la entrega de sus gafas: registro de pacientes y fórmulas ópticas, inventario de monturas, órdenes de
-trabajo con su secuencia de estados, y facturación con pagos parciales. La usan recepcionistas,
-optómetras, vendedores/cajeros y administradores. Resuelve un problema concreto: antes, historias,
+trabajo con su secuencia de estados, y facturación con pagos parciales. La usan vendedores/cajeros,
+optómetras y administradores. Resuelve un problema concreto: antes, historias,
 fórmulas, inventario, órdenes y pagos se llevaban en papel, hojas de cálculo y llamadas al laboratorio, con
 precios y stock desincronizados entre copias.
 
@@ -19,11 +19,11 @@ precios y stock desincronizados entre copias.
 | Integrante | GitHub | Aporte principal |
 |---|---|---|
 | Juan Diego Jiménez Horta | `@ItzJunixs` | Medidor estructural (V(G), LOC, Halstead, MI), medición del frontend, validación contra lizard, propuestas P1, P3 y P6 |
-| Aura María Cabrera Ardila | `@<usuario>` | Suite CK y recomendador, costo de mantenimiento por tipo, gráficos, fichas, propuestas P2, P4, P5, P7 y P8 |
+| Aura María Cabrera Ardila | `@aura200128cabrera-sys` | Suite CK y recomendador, costo de mantenimiento por tipo, gráficos, fichas, propuestas P2, P4, P5, P7 y P8 |
 
 ## 3. Requisitos (resumen)
 
-Los requisitos completos están en el repositorio de documentación de VisionCare (`vc-docs/04-requirements`).
+Criterios de aceptación y trazabilidad: [`docs/requisitos.md`](docs/requisitos.md).
 
 | ID | Requisito | Módulo |
 |---|---|---|
@@ -43,7 +43,7 @@ Los requisitos completos están en el repositorio de documentación de VisionCar
 
 ## 4. Arquitectura
 
-**Monolito modular en capas** (ADR-001 de VisionCare). Hay un solo desplegable con cinco módulos de
+**Monolito modular en capas** (ADR-001 de VisionCare). Detalle y diagramas en [`docs/arquitectura/`](docs/arquitectura/README.md). Hay un solo desplegable con cinco módulos de
 negocio que solo se comunican por su fachada pública. Las reglas ArchUnit de `ModuleBoundariesTest`
 verifican esas fronteras.
 
@@ -142,6 +142,8 @@ visioncare-metricas/
 │   └── resultados/             salidas: backend/, frontend-*, costo, validación
 └── docs/
     ├── informe-final.pdf       (pendiente)
+    ├── requisitos.md           10 RF + 3 RNF con criterios de aceptación y trazabilidad
+    ├── arquitectura/           estilo, ADR, diagramas (Mermaid + PNG) y modelo de datos
     └── metricas/               fichas, resultados, análisis y plan de mejoras, gráficos
 ```
 
