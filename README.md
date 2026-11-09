@@ -141,7 +141,7 @@ visioncare-metricas/
 │   ├── datos/                  foto del historial de commits de los 5 repositorios
 │   └── resultados/             salidas: backend/, frontend-*, costo, validación
 └── docs/
-    ├── informe-final.pdf       (pendiente)
+    ├── informe-final.pdf       informe final del proyecto
     ├── requisitos.md           10 RF + 3 RNF con criterios de aceptación y trazabilidad
     ├── arquitectura/           estilo, ADR, diagramas (Mermaid + PNG) y modelo de datos
     └── metricas/               fichas, resultados, análisis y plan de mejoras, gráficos
@@ -152,6 +152,6 @@ Repositorios originales: `github.com/code-corhuila/vc-api`, `vc-portal`, `vc-db`
 
 ## 10. Licencia y estado
 
-Uso académico. Estado: **análisis completo, mejoras propuestas, sin implementar**.
+Uso académico. Estado: **entregado (etiqueta `v1.0.0`)**: análisis completo, mejoras propuestas, sin implementar. Informe final: [`docs/informe-final.pdf`](docs/informe-final.pdf).
 Se usaron herramientas de IA como apoyo en la construcción de los medidores y la redacción. Su uso se
 declara en el informe final, como exige la sección 8 de la guía.
